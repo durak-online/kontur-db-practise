@@ -1,20 +1,22 @@
-version: "3"
-
 services:
-  mongo:
-    image: mongo:4
-    container_name: mongo
-    restart: always
+  db:
+    image: mongo:7.0
+    restart: unless-stopped
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongodata:/data/db
 
   mongo-express:
-    image: mongo-express
-    restart: always
+    image: mongo-express:1.0.2-20
+    restart: unless-stopped
     ports:
-      - 8081:8081
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://db:27017/
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      - db
 
 volumes:
   mongodata:
