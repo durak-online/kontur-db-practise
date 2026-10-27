@@ -32,7 +32,7 @@ namespace Game.Domain
             private set;
         }
 
-        [BsonElement] public IReadOnlyList<Player> Players => players.AsReadOnly();
+        public IReadOnlyList<Player> Players => players.AsReadOnly();
 
         [BsonElement] public int TurnsCount { get; }
 
